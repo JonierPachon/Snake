@@ -23,6 +23,12 @@ let snake = [
   { x: 0, y: 0 },
 ];
 
+const speedSnakeDefault = 75;
+const speedSnakePressingKeys = 0;
+let speedSnake = speedSnakeDefault;
+
+let isFastSnake = false;
+
 window.addEventListener("keydown", changeDirection);
 resetBtn.addEventListener("click", resetGame);
 
@@ -32,19 +38,24 @@ function gameStart() {
   running = true;
   scoreText.textContent = score;
   createFood();
-  drawFood();
   nextTick();
 }
 function nextTick() {
+  if (isFastSnake) {
+    // When the snake moves faster, this isFastSnake allows it to advance one unit size without moving twice.
+    speedSnake = speedSnakeDefault;
+  }
   if (running) {
+    window.addEventListener("keydown", changeDirection);
     setTimeout(() => {
       clearBoard();
       drawFood();
       moveSnake();
       drawSnake();
       checkGameOver();
+      isFastSnake = true;
       nextTick();
-    }, 75);
+    }, speedSnake);
   } else {
     displayGameOver();
   }
@@ -77,6 +88,21 @@ function moveSnake() {
   } else {
     snake.pop();
   }
+
+  switch (true) {
+    case snake[0].x < 0:
+      snake[0].x = gameWidth;
+      break;
+    case snake[0].x >= gameWidth:
+      snake[0].x = 0;
+      break;
+    case snake[0].y < 0:
+      snake[0].y = gameHeight;
+      break;
+    case snake[0].y >= gameHeight:
+      snake[0].y = 0;
+      break;
+  }
 }
 
 function drawSnake() {
@@ -87,6 +113,7 @@ function drawSnake() {
     ctx.strokeRect(snakePart.x, snakePart.y, unitSize, unitSize);
   });
 }
+
 function changeDirection(event) {
   const keyPressed = event.keyCode;
   const LEFT = 37;
@@ -94,47 +121,56 @@ function changeDirection(event) {
   const RIGHT = 39;
   const DOWN = 40;
 
-  const goingUp = yVelocity == -unitSize;
-  const goingDown = yVelocity == unitSize;
-  const goingRight = xVelocity == unitSize;
   const goingLeft = xVelocity == -unitSize;
+  const goingUp = yVelocity == -unitSize;
+  const goingRight = xVelocity == unitSize;
+  const goingDown = yVelocity == unitSize;
+
+  function pressingKeys() {
+    isFastSnake = false;
+    speedSnake = speedSnakePressingKeys;
+    window.removeEventListener("keydown", changeDirection);
+  }
 
   switch (true) {
-    case keyPressed == LEFT && !goingRight:
+    // When the user presses down and left quickly while the snake is moving right, the snake will collide with itself. The pressingKeys() function prevents this collision.
+    case keyPressed === LEFT && !goingRight:
       xVelocity = -unitSize;
       yVelocity = 0;
+      pressingKeys();
       break;
-    case keyPressed == UP && !goingDown:
-      yVelocity = -unitSize;
-      xVelocity = 0;
-      break;
-    case keyPressed == RIGHT && !goingLeft:
+    case keyPressed === RIGHT && !goingLeft:
       xVelocity = unitSize;
       yVelocity = 0;
+      pressingKeys();
       break;
-    case keyPressed == DOWN && !goingDown:
+    case keyPressed === UP && !goingDown:
+      yVelocity = -unitSize;
+      xVelocity = 0;
+      pressingKeys();
+      break;
+    case keyPressed === DOWN && !goingUp:
       yVelocity = unitSize;
       xVelocity = 0;
+      pressingKeys();
       break;
   }
 }
 function checkGameOver() {
-  const hitTheWall = "Game Over, You Hit The Wall";
-  const hitSelf = "Game Over, You Hit Yourself";
-  switch (true) {
-    case snake[0].x < 0:
-      running = false;
-      break;
-    case snake[0].x >= gameWidth:
-      running = false;
-      break;
-    case snake[0].y < 0:
-      running = false;
-      break;
-    case snake[0].y >= gameHeight:
-      running = false;
-      break;
-  }
+  //   switch (true) {
+  //     case snake[0].x < 0:
+  //       running = false;
+  //       break;
+  //     case snake[0].x >= gameWidth:
+  //       running = false;
+  //       break;
+  //     case snake[0].y < 0:
+  //       running = false;
+  //       break;
+  //     case snake[0].y >= gameHeight:
+  //       running = false;
+  //       break;
+  //   }
   for (i = 1; i < snake.length; i += 1) {
     if (snake[i].x == snake[0].x && snake[i].y == snake[0].y) {
       running = false;
