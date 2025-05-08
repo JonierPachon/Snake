@@ -1,19 +1,152 @@
-#gameContainer {
-  text-align: center;
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-#gameBoard {
+.gameContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  max-width: 500px;
+}
+
+.gameContainer__gameBoard {
   border: 3px solid;
 }
-#scoreText {
-  font-family: "permanent Marker", cursive;
-  font-size: 100px;
+
+.gameContainer__score {
+  width: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-#resetBtn {
+.gameContainer__scoreText {
+  font-family: "permanent Marker", cursive;
+  font-size: 80px;
+  line-height: 1;
+}
+
+/* reset and pause buttons */
+.gameContainer__btns-btns {
   font-family: "permanent Marker", cursive;
   font-size: 22px;
-  width: 100px;
+  width: 80px;
   height: 50px;
-  border: 4px solid;
+  border: 3px solid;
+  border-radius: 1000px;
+  cursor: pointer;
+  font-weight: bolder;
+  color: white;
+  border: rgba(0, 0, 0, 0.751) solid;
+  background-color: rgba(26, 153, 3, 0.803);
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+/* adding some color */
+.gameContainer__btns-btns::after {
+  content: " ";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  z-index: -1;
+  background-image: linear-gradient(
+    to bottom right,
+    rgba(144, 238, 144, 0.529),
+    rgba(0, 100, 0, 0.359)
+  );
+}
+
+.gameContainer__btns-btns:hover {
+  z-index: 0;
+  box-shadow: 40px 0 100px #07bc343b, -40px 0 100px #f6020234;
+}
+
+.gameContainer__directionButtons-general-design {
+  font-family: "permanent Marker", cursive;
+  font-size: 22px;
+  font-weight: bolder;
+  color: rgb(255, 255, 255);
+  width: 60px;
+  height: 60px;
+  border: rgba(4, 5, 4, 0.751) solid;
+  background-color: rgba(26, 153, 3, 0.803);
   border-radius: 15px;
   cursor: pointer;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* adding some color */
+.gameContainer__directionButtons-general-design::before {
+  content: " ";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  z-index: -1;
+  background-image: linear-gradient(
+    to bottom right,
+    rgba(144, 238, 144, 0.529),
+    rgba(0, 100, 0, 0.359)
+  );
+}
+
+.gameContainer__directionButtons-general-design:hover {
+  z-index: 0;
+  box-shadow: 40px 0 100px #07bc343b, -40px 0 100px #f6020234;
+}
+
+/* Align buttons */
+
+.gameContainer__directionButtons-center {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid;
+  height: 40px;
+  width: 40px;
+}
+.gameContainer__directionButtons-btns {
+  position: absolute;
+}
+
+#leftBtn {
+  right: 100%;
+}
+#upBtn {
+  bottom: 100%;
+}
+#rightBtn {
+  left: 100%;
+}
+#downBtn {
+  top: 100%;
+}
+
+.gameContainer__btns-place {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 120px;
+}
+
+.gameContainer__all-directionButtons {
+  padding-top: 60px;
+}
+
+.gameContainer__btns-align {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }

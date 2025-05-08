@@ -1,7 +1,8 @@
-const gameBoard = document.querySelector("#gameBoard");
+const gameBoard = document.querySelector(".gameContainer__gameBoard");
 const ctx = gameBoard.getContext("2d");
-const scoreText = document.querySelector("#scoreText");
+const scoreText = document.querySelector(".gameContainer__scoreText");
 const resetBtn = document.querySelector("#resetBtn");
+const pauseGameBtn = document.querySelector("#pauseBtn");
 const gameWidth = gameBoard.width;
 const gameHeight = gameBoard.height;
 const boardBackground = "white";
@@ -22,38 +23,41 @@ let snake = [
   { x: unitSize, y: 0 },
   { x: 0, y: 0 },
 ];
-
+let gameLoopTimeout; // holds the reference to the timeout
+// let pauseBtnWasPressed = true;
 const speedSnakeDefault = 75;
 const speedSnakePressingKeys = 0;
 let speedSnake = speedSnakeDefault;
-
 let isFastSnake = false;
 
 window.addEventListener("keydown", changeDirection);
 resetBtn.addEventListener("click", resetGame);
+pauseGameBtn.addEventListener("click", pauseGame);
 
 gameStart();
 
 function gameStart() {
+  console.log("Speed Snake:", speedSnake);
+  console.log("is fast the snake:", isFastSnake);
   running = true;
   scoreText.textContent = score;
   createFood();
   nextTick();
 }
+
 function nextTick() {
   if (isFastSnake) {
     // When the snake moves faster, this isFastSnake allows it to advance one unit size without moving twice.
     speedSnake = speedSnakeDefault;
+    isFastSnake = false;
   }
   if (running) {
-    window.addEventListener("keydown", changeDirection);
-    setTimeout(() => {
+    gameLoopTimeout = setTimeout(() => {
       clearBoard();
       drawFood();
       moveSnake();
       drawSnake();
       checkGameOver();
-      isFastSnake = true;
       nextTick();
     }, speedSnake);
   } else {
@@ -78,16 +82,34 @@ function drawFood() {
   ctx.fillRect(foodX, foodY, unitSize, unitSize);
 }
 function moveSnake() {
-  const head = { x: snake[0].x + xVelocity, y: snake[0].y + yVelocity };
-  snake.unshift(head);
-  // if food is eaten
-  if (snake[0].x === foodX && snake[0].y === foodY) {
+  // 1. Calculate new head
+  let head = { x: snake[0].x + xVelocity, y: snake[0].y + yVelocity };
+
+  // 2. Apply wrap-around
+  if (head.x < 0) {
+    head.x = gameWidth - unitSize;
+  } else if (head.x >= gameWidth) {
+    head.x = 0;
+  }
+
+  if (head.y < 0) {
+    head.y = gameHeight - unitSize;
+  } else if (head.y >= gameHeight) {
+    head.y = 0;
+  }
+
+  // 3. Check if food is eaten
+  if (head.x === foodX && head.y === foodY) {
     score += 1;
     scoreText.textContent = score;
     createFood();
+    // Keep the tail to grow the snake
   } else {
-    snake.pop();
+    snake.pop(); // Remove tail
   }
+
+  // 4. Add new head
+  snake.unshift(head);
 
   switch (true) {
     case snake[0].x < 0:
@@ -114,6 +136,58 @@ function drawSnake() {
   });
 }
 
+function pressingKeys() {
+  isFastSnake = true;
+  speedSnake = speedSnakePressingKeys;
+}
+function snakeLeft() {
+  xVelocity = -unitSize;
+  yVelocity = 0;
+}
+
+function snakeRight() {
+  xVelocity = unitSize;
+  yVelocity = 0;
+}
+function snakeUp() {
+  yVelocity = -unitSize;
+  xVelocity = 0;
+}
+function snakeDown() {
+  yVelocity = unitSize;
+  xVelocity = 0;
+}
+
+function snakeDirection(arrow) {
+  //
+  const goingLeft = xVelocity == -unitSize;
+  const goingUp = yVelocity == -unitSize;
+  const goingRight = xVelocity == unitSize;
+  const goingDown = yVelocity == unitSize;
+
+  if (!isFastSnake) {
+    switch (true) {
+      case arrow.id === "leftBtn" && !goingRight:
+        snakeLeft();
+        pressingKeys();
+
+        break;
+      case arrow.id === "rightBtn" && !goingLeft:
+        snakeRight();
+        pressingKeys();
+        break;
+      case arrow.id === "upBtn" && !goingDown:
+        snakeUp();
+        pressingKeys();
+        break;
+      case arrow.id === "downBtn" && !goingUp:
+        snakeDown();
+        pressingKeys();
+        break;
+    }
+  }
+}
+
 function changeDirection(event) {
   const keyPressed = event.keyCode;
   const LEFT = 37;
@@ -126,34 +200,26 @@ function changeDirection(event) {
   const goingRight = xVelocity == unitSize;
   const goingDown = yVelocity == unitSize;
 
-  function pressingKeys() {
-    isFastSnake = false;
-    speedSnake = speedSnakePressingKeys;
-    window.removeEventListener("keydown", changeDirection);
-  }
-
-  switch (true) {
-    // When the user presses down and left quickly while the snake is moving right, the snake will collide with itself. The pressingKeys() function prevents this collision.
-    case keyPressed === LEFT && !goingRight:
-      xVelocity = -unitSize;
-      yVelocity = 0;
-      pressingKeys();
-      break;
-    case keyPressed === RIGHT && !goingLeft:
-      xVelocity = unitSize;
-      yVelocity = 0;
-      pressingKeys();
-      break;
-    case keyPressed === UP && !goingDown:
-      yVelocity = -unitSize;
-      xVelocity = 0;
-      pressingKeys();
-      break;
-    case keyPressed === DOWN && !goingUp:
-      yVelocity = unitSize;
-      xVelocity = 0;
-      pressingKeys();
-      break;
+  if (!isFastSnake) {
+    switch (true) {
+      // When the user presses down and left quickly while the snake is moving right, the snake will collide with itself. The pressingKeys() function prevents this collision.
+      case keyPressed === LEFT && !goingRight:
+        snakeLeft();
+        pressingKeys();
+        break;
+      case keyPressed === RIGHT && !goingLeft:
+        snakeRight();
+        pressingKeys();
+        break;
+      case keyPressed === UP && !goingDown:
+        snakeUp();
+        pressingKeys();
+        break;
+      case keyPressed === DOWN && !goingUp:
+        snakeDown();
+        pressingKeys();
+        break;
+    }
   }
 }
 function checkGameOver() {
@@ -184,7 +250,27 @@ function displayGameOver() {
   ctx.fillText("GAME OVER!", gameWidth / 2, gameHeight / 2);
   running = false;
 }
+
+function pauseGame(answer) {
+  switch (true) {
+    case answer.value === "yes":
+      clearTimeout(gameLoopTimeout);
+      running = false;
+      pauseGameBtn.textContent = "▶";
+      answer.value = "no";
+      break;
+    case answer.value === "no":
+      answer.value = "yes";
+      pauseGameBtn.textContent = "⏸";
+      running = true;
+      nextTick();
+      break;
+  }
+}
 function resetGame() {
+  clearTimeout(gameLoopTimeout); // Stop previous loop
+  speedSnake = speedSnakeDefault;
+  isFastSnake = false;
   score = 0;
   xVelocity = unitSize;
   yVelocity = 0;
