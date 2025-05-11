@@ -5,27 +5,13 @@ body {
   justify-content: center;
   align-items: center;
 }
-.gameContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-  max-width: 500px;
-}
 
 .gameContainer__gameBoard {
   border: 3px solid;
 }
-
-.gameContainer__score {
-  width: 80px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 .gameContainer__scoreText {
   font-family: "permanent Marker", cursive;
+  /*  */
   font-size: 80px;
   line-height: 1;
 }
@@ -132,6 +118,7 @@ body {
   top: 100%;
 }
 
+/* media queries */
 .gameContainer__btns-place {
   display: flex;
   justify-content: center;
@@ -149,4 +136,29 @@ body {
   justify-content: center;
   align-items: center;
   gap: 10px;
+}
+
+@media screen and (max-width: 550px) {
+  .gameContainer__btns-place {
+    gap: 90px;
+  }
+
+  .gameContainer__directionButtons-general-design {
+    width: 50px;
+    height: 50px;
+  }
+
+  .gameContainer__directionButtons-center {
+    height: 30px;
+    width: 30px;
+  }
+
+  .gameContainer__btns-btns {
+    width: 70px;
+    height: 40px;
+  }
+
+  .gameContainer__scoreText {
+    font-size: 60px;
+  }
 }
