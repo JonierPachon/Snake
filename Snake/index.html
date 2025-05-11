@@ -5,62 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Snake</title>
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="mediaqueries.css" />
   </head>
   <body>
-    <div class="gameContainer">
-      <div>
-        <canvas class="gameContainer__gameBoard" width="500" height="500">
-        </canvas>
-        <div class="gameContainer__btns-place">
-          <div class="gameContainer__score">
-            <a class="gameContainer__scoreText">0</a>
-          </div>
-          <div class="gameContainer__all-directionButtons">
-            <div
-              class="gameContainer__directionButtons-center gameContainer__directionButtons-general-design"
-            >
-              <button
-                id="leftBtn"
-                class="gameContainer__directionButtons-btns gameContainer__directionButtons-general-design"
-                onclick="snakeDirection(this)"
-              >
-                ←
-              </button>
-              <button
-                class="gameContainer__directionButtons-btns gameContainer__directionButtons-general-design"
-                id="upBtn"
-                onclick="snakeDirection(this)"
-              >
-                ↑
-              </button>
-              <button
-                class="gameContainer__directionButtons-btns gameContainer__directionButtons-general-design"
-                id="rightBtn"
-                onclick="snakeDirection(this)"
-              >
-                →
-              </button>
-              <button
-                class="gameContainer__directionButtons-btns gameContainer__directionButtons-general-design"
-                id="downBtn"
-                onclick="snakeDirection(this)"
-              >
-                ↓
-              </button>
-            </div>
-          </div>
-          <div class="gameContainer__btns-align">
-            <button class="gameContainer__btns-btns" id="resetBtn">⟳</button>
+    <div class="game">
+      <canvas class="gameBoard" width="500" height="500"> </canvas>
+      <div class="game__controls">
+        <div class="game__score">
+          <span class="game__score-text">0</span>
+        </div>
+        <div class="game__direction-buttons">
+          <div
+            class="game__direction-buttons-center game__direction-buttons-general"
+          >
             <button
-              value="yes"
-              class="gameContainer__btns-btns"
-              id="pauseBtn"
-              onclick="pauseGame(this)"
+              id="leftBtn"
+              class="game__direction-button game__direction-buttons-general"
+              onclick="snakeDirection(this)"
             >
-              ⏸
+              ←
+            </button>
+            <button
+              class="game__direction-button game__direction-buttons-general"
+              id="upBtn"
+              onclick="snakeDirection(this)"
+            >
+              ↑
+            </button>
+            <button
+              class="game__direction-button game__direction-buttons-general"
+              id="rightBtn"
+              onclick="snakeDirection(this)"
+            >
+              →
+            </button>
+            <button
+              class="game__direction-button game__direction-buttons-general"
+              id="downBtn"
+              onclick="snakeDirection(this)"
+            >
+              ↓
             </button>
           </div>
+        </div>
+        <div class="game__action-buttons">
+          <button class="game__action-button" id="resetBtn">⟳</button>
+          <button
+            value="yes"
+            class="game__action-button"
+            id="pauseBtn"
+            onclick="pauseGame(this)"
+          >
+            ||
+          </button>
         </div>
       </div>
     </div>

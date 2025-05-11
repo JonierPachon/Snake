@@ -1,6 +1,6 @@
-const gameBoard = document.querySelector(".gameContainer__gameBoard");
+const gameBoard = document.querySelector(".gameBoard");
 const ctx = gameBoard.getContext("2d");
-const scoreText = document.querySelector(".gameContainer__scoreText");
+const scoreText = document.querySelector(".game__score-text");
 const resetBtn = document.querySelector("#resetBtn");
 const pauseGameBtn = document.querySelector("#pauseBtn");
 let gameWidth = gameBoard.width;
@@ -82,7 +82,7 @@ function adjustGameForScreenSize() {
     window.innerWidth < thresholdWidth ||
     window.innerHeight < thresholdHeight
   ) {
-    screenResize(360, 18);
+    screenResize(340, 17);
   } else {
     screenResize(500, 25);
   }
@@ -141,7 +141,7 @@ function drawFood() {
   ctx.fillRect(foodX, foodY, unitSize, unitSize);
 }
 function moveSnake() {
-  // 1. Calculate new head
+  // 1. Calculating new head
   let head = { x: snake[0].x + xVelocity, y: snake[0].y + yVelocity };
 
   // 2. Applying wrap-around
@@ -157,33 +157,18 @@ function moveSnake() {
     head.y = 0;
   }
 
-  // 3. Check if food is eaten
+  // 3. Checking if food is eaten
   if (head.x === foodX && head.y === foodY) {
     score += 1;
     scoreText.textContent = score;
     createFood();
-    // Keep the tail to grow the snake
+    // Keeping the tail to grow the snake
   } else {
-    snake.pop(); // Remove tail
+    snake.pop(); // Removing tail
   }
 
-  // 4. Add new head
+  // 4. Adding new head
   snake.unshift(head);
-
-  switch (true) {
-    case snake[0].x < 0:
-      snake[0].x = gameWidth;
-      break;
-    case snake[0].x >= gameWidth:
-      snake[0].x = 0;
-      break;
-    case snake[0].y < 0:
-      snake[0].y = gameHeight;
-      break;
-    case snake[0].y >= gameHeight:
-      snake[0].y = 0;
-      break;
-  }
 }
 
 function drawSnake() {
@@ -311,8 +296,8 @@ function pauseGame(answer) {
       break;
     case answer.value === "no":
       answer.value = "yes";
-      pauseGameBtn.textContent = "⏸";
-
+      pauseGameBtn.textContent = "||";
+      //
       running = true;
       nextTick();
       break;
