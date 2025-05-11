@@ -1,4 +1,4 @@
-const gameBoard = document.querySelector(".gameBoard");
+const gameBoard = document.querySelector(".game__board");
 const ctx = gameBoard.getContext("2d");
 const scoreText = document.querySelector(".game__score-text");
 const resetBtn = document.querySelector("#resetBtn");
@@ -31,8 +31,8 @@ let speedSnake = speedSnakeDefault;
 let isFastSnake = false;
 let gameOver = true;
 
-let thresholdWidth = 550; // limit of the screen
-let thresholdHeight = 550; // limit of the screen
+let thresholdWidth = 500; // limit of the screen
+let thresholdHeight = 500; // limit of the screen
 
 window.addEventListener("resize", adjustGameForScreenSize);
 window.addEventListener("keydown", changeDirection);
@@ -182,6 +182,50 @@ function drawSnake() {
 
 // movements of the snake ...
 
+//
+
+function changeDirectionByKey(keyCode) {
+  const goingLeft = xVelocity == -unitSize;
+  const goingUp = yVelocity == -unitSize;
+  const goingRight = xVelocity == unitSize;
+  const goingDown = yVelocity == unitSize;
+
+  if (isFastSnake) return;
+
+  switch (keyCode) {
+    case 37:
+      if (!goingLeft) snakeLeft();
+      break;
+    case 38:
+      if (!goingDown) snakeUp();
+      break;
+    case 39:
+      if (!goingLeft) snakeRight();
+      break;
+    case 40:
+      if (!goingUp) snakeDown();
+      break;
+  }
+
+  pressingKeys();
+}
+
+function changeDirection(event) {
+  changeDirectionByKey(event.keyCode);
+}
+
+function snakeDirection(button) {
+  const keyMap = {
+    leftBtn: 37,
+    upBtn: 38,
+    rightBtn: 39,
+    downBtn: 40,
+  };
+  changeDirectionByKey(keyMap[button.id]);
+}
+
+//
+
 function pressingKeys() {
   isFastSnake = true;
   speedSnake = speedSnakePressingKeys;
@@ -204,70 +248,70 @@ function snakeDown() {
   xVelocity = 0;
 }
 
-function snakeDirection(arrow) {
-  //
-  const goingLeft = xVelocity == -unitSize;
-  const goingUp = yVelocity == -unitSize;
-  const goingRight = xVelocity == unitSize;
-  const goingDown = yVelocity == unitSize;
+// function snakeDirection(arrow) {
+//   //
+//   const goingLeft = xVelocity == -unitSize;
+//   const goingUp = yVelocity == -unitSize;
+//   const goingRight = xVelocity == unitSize;
+//   const goingDown = yVelocity == unitSize;
 
-  if (!isFastSnake) {
-    switch (true) {
-      case arrow.id === "leftBtn" && !goingRight:
-        snakeLeft();
-        pressingKeys();
+//   if (!isFastSnake) {
+//     switch (true) {
+//       case arrow.id === "leftBtn" && !goingRight:
+//         snakeLeft();
+//         pressingKeys();
 
-        break;
-      case arrow.id === "rightBtn" && !goingLeft:
-        snakeRight();
-        pressingKeys();
-        break;
-      case arrow.id === "upBtn" && !goingDown:
-        snakeUp();
-        pressingKeys();
-        break;
-      case arrow.id === "downBtn" && !goingUp:
-        snakeDown();
-        pressingKeys();
-        break;
-    }
-  }
-}
+//         break;
+//       case arrow.id === "rightBtn" && !goingLeft:
+//         snakeRight();
+//         pressingKeys();
+//         break;
+//       case arrow.id === "upBtn" && !goingDown:
+//         snakeUp();
+//         pressingKeys();
+//         break;
+//       case arrow.id === "downBtn" && !goingUp:
+//         snakeDown();
+//         pressingKeys();
+//         break;
+//     }
+//   }
+// }
 
-function changeDirection(event) {
-  const keyPressed = event.keyCode;
-  const LEFT = 37;
-  const UP = 38;
-  const RIGHT = 39;
-  const DOWN = 40;
+// function changeDirection(event) {
+//   const keyPressed = event.keyCode;
+//   const LEFT = 37;
+//   const UP = 38;
+//   const RIGHT = 39;
+//   const DOWN = 40;
 
-  const goingLeft = xVelocity == -unitSize;
-  const goingUp = yVelocity == -unitSize;
-  const goingRight = xVelocity == unitSize;
-  const goingDown = yVelocity == unitSize;
+//   const goingLeft = xVelocity == -unitSize;
+//   const goingUp = yVelocity == -unitSize;
+//   const goingRight = xVelocity == unitSize;
+//   const goingDown = yVelocity == unitSize;
 
-  if (!isFastSnake) {
-    switch (true) {
-      // When the user quickly presses down and left while the snake is moving to the right, the snake will collide with itself. The isFastSnake variable prevents this by utilizing the pressingKeys() method.
-      case keyPressed === LEFT && !goingRight:
-        snakeLeft();
-        pressingKeys();
-        break;
-      case keyPressed === RIGHT && !goingLeft:
-        snakeRight();
-        pressingKeys();
-        break;
-      case keyPressed === UP && !goingDown:
-        snakeUp();
-        pressingKeys();
-        break;
-      case keyPressed === DOWN && !goingUp:
-        snakeDown();
-        pressingKeys();
-        break;
-    }
-  }
-}
+//   if (!isFastSnake) {
+//     switch (true) {
+//       // When the user quickly presses down and left while the snake is moving to the right, the snake will collide with itself. The isFastSnake variable prevents this by utilizing the pressingKeys() method.
+//       case keyPressed === LEFT && !goingRight:
+//         snakeLeft();
+//         pressingKeys();
+//         break;
+//       case keyPressed === RIGHT && !goingLeft:
+//         snakeRight();
+//         pressingKeys();
+//         break;
+//       case keyPressed === UP && !goingDown:
+//         snakeUp();
+//         pressingKeys();
+//         break;
+//       case keyPressed === DOWN && !goingUp:
+//         snakeDown();
+//         pressingKeys();
+//         break;
+//     }
+//   }
+// }
 function checkGameOver() {
   for (i = 1; i < snake.length; i += 1) {
     if (snake[i].x == snake[0].x && snake[i].y == snake[0].y) {

@@ -6,7 +6,7 @@ body {
   align-items: center;
 }
 
-.gameBoard {
+.game__board {
   border: 3px solid;
 }
 
@@ -146,7 +146,7 @@ body {
   font-size: 18px;
 }
 
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 500px) {
   .game__controls {
     gap: 90px;
   }
@@ -162,7 +162,7 @@ body {
   }
 
   /* pause and reset buttons */
-  . {
+  .game__action-button {
     width: 60px;
     height: 40px;
   }
