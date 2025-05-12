@@ -20,7 +20,7 @@ body {
 }
 
 .level {
-  font-family: "permanent Marker", cursive, sans-serif;
+  font-family: "permanent Marker", sans-serif;
   font-size: 16px;
   border: 3px solid;
   padding: 10px 0 10px 10px;
@@ -39,7 +39,7 @@ body {
 
 /* reset and pause buttons */
 .game__action-button {
-  font-family: "permanent Marker", cursive;
+  font-family: "permanent Marker", sans-serif;
   font-size: 22px;
   width: 80px;
   height: 50px;
@@ -73,7 +73,7 @@ body {
 }
 
 #centerBtn {
-  font-family: "permanent Marker", cursive;
+  font-family: "permanent Marker", sans-serif;
   width: 42px;
   height: 42px;
   background-color: rgba(26, 153, 3, 0.803);
@@ -83,7 +83,7 @@ body {
 }
 
 .game__direction-buttons-general {
-  font-family: "permanent Marker", cursive;
+  font-family: "permanent Marker", sans-serif;
   font-size: 22px;
   font-weight: bolder;
   color: rgb(255, 255, 255);

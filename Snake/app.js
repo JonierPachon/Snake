@@ -165,6 +165,16 @@ function createFood() {
   }
   foodX = randomFood(0, gameWidth - unitSize);
   foodY = randomFood(0, gameWidth - unitSize);
+  while (
+    snake.some((snakePart) => snakePart.x === foodX && snakePart.y === foodY)
+  ) {
+    foodX = randomFood(0, gameWidth - unitSize);
+    foodY = randomFood(0, gameWidth - unitSize);
+  }
+
+  //   if (snake.some((snakePart) => snakePart.x === foodX && snakePart.y === foodY)) {
+  //     createFood();
+  //   }
 }
 function drawFood() {
   ctx.fillStyle = foodColor;
