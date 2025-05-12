@@ -93,7 +93,7 @@ function nextTick() {
     isFastSnake = false;
   }
   if (running) {
-    gameLoopTimeout = requestAnimationFrame(() => {
+    gameLoopTimeout = setTimeout(() => {
       clearBoard();
       drawFood();
       moveSnake();
