@@ -1,9 +1,12 @@
-body {
-  margin: 0;
+.flex-center {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+body {
+  margin: 0;
+  flex-direction: column;
 }
 
 .game__board {
@@ -11,8 +14,23 @@ body {
 }
 
 .game__score {
+  flex-direction: column;
   width: 70px;
+  gap: 10px;
 }
+
+.level {
+  font-family: "permanent Marker", cursive, sans-serif;
+  font-size: 16px;
+  border: 3px solid;
+  padding: 10px 0 10px 10px;
+  border-radius: 50px;
+  cursor: pointer;
+  color: white;
+  border: rgba(0, 0, 0, 0.751) solid;
+  background-color: rgba(26, 153, 3, 0.803);
+}
+
 .game__score-text {
   font-family: "permanent Marker", "sans-serif";
   font-size: 80px;
@@ -33,9 +51,6 @@ body {
   border: rgba(0, 0, 0, 0.751) solid;
   background-color: rgba(26, 153, 3, 0.803);
   position: relative;
-  justify-content: center;
-  align-items: center;
-  display: flex;
 }
 /* adding some color */
 .game__action-button::after {
@@ -57,6 +72,16 @@ body {
   box-shadow: 40px 0 100px #07bc343b, -40px 0 100px #f6020234;
 }
 
+#centerBtn {
+  font-family: "permanent Marker", cursive;
+  width: 42px;
+  height: 42px;
+  background-color: rgba(26, 153, 3, 0.803);
+  border: none;
+  border-radius: 10px;
+  cursor: default;
+}
+
 .game__direction-buttons-general {
   font-family: "permanent Marker", cursive;
   font-size: 22px;
@@ -69,9 +94,6 @@ body {
   border-radius: 15px;
   cursor: pointer;
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 /* adding some color */
 .game__direction-buttons-general::before {
@@ -97,13 +119,11 @@ body {
 
 .game__direction-buttons-center {
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   border: 1px solid;
   height: 40px;
   width: 40px;
 }
+
 .game__direction-button {
   position: absolute;
 }
@@ -123,9 +143,6 @@ body {
 
 /* media queries */
 .game__controls {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   gap: 120px;
 }
 
@@ -134,10 +151,7 @@ body {
 }
 
 .game__action-buttons {
-  display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   gap: 10px;
 }
 
@@ -148,12 +162,17 @@ body {
 
 @media screen and (max-width: 500px) {
   .game__controls {
-    gap: 90px;
+    gap: 86px;
   }
 
   .game__direction-buttons-general {
-    width: 55px;
-    height: 55px;
+    width: 57px;
+    height: 57px;
+  }
+
+  #centerBtn {
+    width: 38px;
+    height: 38px;
   }
 
   .game__direction-buttons-center {
@@ -171,5 +190,11 @@ body {
   }
   .game__score-text {
     font-size: 60px;
+  }
+
+  .level {
+    font-size: 12px;
+    padding: 8px 0 8px 8px;
+    font-weight: bolder;
   }
 }

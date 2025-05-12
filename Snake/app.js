@@ -24,15 +24,45 @@ let snake = [
   { x: 0, y: 0 },
 ];
 let gameLoopTimeout; // holds the reference to the timeout
-// let pauseBtnWasPressed = true;
-const speedSnakeDefault = 75;
-const speedSnakePressingKeys = 0;
+let speedSnakeDefault = 75;
+let speedSnakePressingKeys = 0;
 let speedSnake = speedSnakeDefault;
 let isFastSnake = false;
 let gameOver = true;
 
 let thresholdWidth = 500; // limit of the screen
 let thresholdHeight = 500; // limit of the screen
+
+//
+
+document.addEventListener("DOMContentLoaded", function () {
+  let level = document.querySelector(".level");
+  level.addEventListener("change", function () {
+    switch (level.value) {
+      case "easy":
+        speedSnake = speedSnakeDefault = 110;
+        break;
+      case "medium":
+        speedSnake = speedSnakeDefault = 75;
+        break;
+      case "hard":
+        speedSnake = speedSnakeDefault = 50;
+        break;
+    }
+  });
+
+  // This code disables the arrows for selecting between the options: easy, medium, and hard.
+  document.addEventListener("keydown", function (event) {
+    if (
+      event.key === "ArrowUp" ||
+      event.key === "ArrowRight" ||
+      event.key === "ArrowDown" ||
+      event.key === "ArrowLeft"
+    ) {
+      event.preventDefault(); // Prevent the default action
+    }
+  });
+});
 
 window.addEventListener("resize", adjustGameForScreenSize);
 window.addEventListener("keydown", changeDirection);
@@ -63,7 +93,7 @@ function nextTick() {
     isFastSnake = false;
   }
   if (running) {
-    gameLoopTimeout = setTimeout(() => {
+    gameLoopTimeout = requestAnimationFrame(() => {
       clearBoard();
       drawFood();
       moveSnake();
@@ -182,8 +212,6 @@ function drawSnake() {
 
 // movements of the snake ...
 
-//
-
 function changeDirectionByKey(keyCode) {
   const goingLeft = xVelocity == -unitSize;
   const goingUp = yVelocity == -unitSize;
@@ -194,7 +222,7 @@ function changeDirectionByKey(keyCode) {
 
   switch (keyCode) {
     case 37:
-      if (!goingLeft) snakeLeft();
+      if (!goingRight) snakeLeft();
       break;
     case 38:
       if (!goingDown) snakeUp();
@@ -248,72 +276,8 @@ function snakeDown() {
   xVelocity = 0;
 }
 
-// function snakeDirection(arrow) {
-//   //
-//   const goingLeft = xVelocity == -unitSize;
-//   const goingUp = yVelocity == -unitSize;
-//   const goingRight = xVelocity == unitSize;
-//   const goingDown = yVelocity == unitSize;
-
-//   if (!isFastSnake) {
-//     switch (true) {
-//       case arrow.id === "leftBtn" && !goingRight:
-//         snakeLeft();
-//         pressingKeys();
-
-//         break;
-//       case arrow.id === "rightBtn" && !goingLeft:
-//         snakeRight();
-//         pressingKeys();
-//         break;
-//       case arrow.id === "upBtn" && !goingDown:
-//         snakeUp();
-//         pressingKeys();
-//         break;
-//       case arrow.id === "downBtn" && !goingUp:
-//         snakeDown();
-//         pressingKeys();
-//         break;
-//     }
-//   }
-// }
-
-// function changeDirection(event) {
-//   const keyPressed = event.keyCode;
-//   const LEFT = 37;
-//   const UP = 38;
-//   const RIGHT = 39;
-//   const DOWN = 40;
-
-//   const goingLeft = xVelocity == -unitSize;
-//   const goingUp = yVelocity == -unitSize;
-//   const goingRight = xVelocity == unitSize;
-//   const goingDown = yVelocity == unitSize;
-
-//   if (!isFastSnake) {
-//     switch (true) {
-//       // When the user quickly presses down and left while the snake is moving to the right, the snake will collide with itself. The isFastSnake variable prevents this by utilizing the pressingKeys() method.
-//       case keyPressed === LEFT && !goingRight:
-//         snakeLeft();
-//         pressingKeys();
-//         break;
-//       case keyPressed === RIGHT && !goingLeft:
-//         snakeRight();
-//         pressingKeys();
-//         break;
-//       case keyPressed === UP && !goingDown:
-//         snakeUp();
-//         pressingKeys();
-//         break;
-//       case keyPressed === DOWN && !goingUp:
-//         snakeDown();
-//         pressingKeys();
-//         break;
-//     }
-//   }
-// }
 function checkGameOver() {
-  for (i = 1; i < snake.length; i += 1) {
+  for (let i = 1; i < snake.length; i += 1) {
     if (snake[i].x == snake[0].x && snake[i].y == snake[0].y) {
       running = false;
     }
