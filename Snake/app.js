@@ -65,6 +65,17 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+document.body.addEventListener(
+  "touchstart",
+  () => {
+    document.querySelectorAll("audio").forEach((audio) => {
+      audio.play().catch(() => {}); // allow silent failure
+      audio.pause(); // pause immediately after unlocking
+    });
+  },
+  { once: true }
+);
+//
 window.addEventListener("resize", adjustGameForScreenSize);
 window.addEventListener("keydown", changeDirection);
 resetBtn.addEventListener("click", resetGame);
