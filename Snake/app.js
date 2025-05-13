@@ -1,3 +1,4 @@
+let eatSound = document.querySelector(".eating");
 const gameBoard = document.querySelector(".game__board");
 const ctx = gameBoard.getContext("2d");
 const scoreText = document.querySelector(".game__score-text");
@@ -202,6 +203,12 @@ function moveSnake() {
     score += 1;
     scoreText.textContent = score;
     createFood();
+    eatSound.currentTime = 0;
+    if (score % 25 == 0) {
+      document.querySelector(".children-celebrating").play();
+    } else {
+      eatSound.play();
+    }
     // Keeping the tail to grow the snake
   } else {
     snake.pop(); // Removing tail
@@ -300,6 +307,7 @@ function displayGameOver() {
   ctx.fillText("GAME OVER!", gameWidth / 2, gameHeight / 2);
   running = false;
   gameOver = true;
+  document.querySelector(".surprise").play();
 }
 
 function pauseGame(answer) {
