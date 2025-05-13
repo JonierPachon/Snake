@@ -346,6 +346,8 @@ function resetGame() {
   score = 0;
   xVelocity = unitSize;
   yVelocity = 0;
+  pauseGameBtn.textContent = "||";
+  pauseGameBtn.value = "yes";
 
   snake = [
     { x: unitSize * 4, y: 0 },
