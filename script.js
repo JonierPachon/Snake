@@ -38,8 +38,6 @@ const keyCodes = { LEFT: 37, UP: 38, RIGHT: 39, DOWN: 40 };
 let highScore = parseInt(localStorage.getItem("highScore")) || 0;
 highScoreText.textContent = `Best: ${highScore}`;
 
-//
-
 document.addEventListener("DOMContentLoaded", function () {
    const levelSelect = document.querySelector(".level");
    levelSelect.addEventListener("change", function () {
@@ -224,10 +222,12 @@ function moveSnake() {
          localStorage.setItem("highScore", highScore);
       }
       createFood();
-      eatSound.currentTime = 0;
+
       if (score % 25 == 0) {
          document.querySelector(".children-celebrating").play();
       } else {
+         eatSound.pause();
+         eatSound.currentTime = 0;
          eatSound.play();
       }
       // Keeping the tail to grow the snake
