@@ -37,7 +37,7 @@ A modern twist on the classic Snake game, built using **HTML**, **CSS**, and **J
 
 ## 🚀 Live Demo
 
-[View Live Project](https://loquacious-peony-3bf3a0.netlify.app/)
+[Play now](https://loquacious-peony-3bf3a0.netlify.app/)
 
 ---
 
@@ -47,8 +47,16 @@ A modern twist on the classic Snake game, built using **HTML**, **CSS**, and **J
 - **CSS3** — styling, responsive layout
 - **JavaScript (Vanilla)** — game logic, controls, audio
 - **Canvas API** — drawing snake and food
+  
+---
 
-
+ ## 🧠 Key Concepts Practiced
+- Canvas rendering and game loop logic
+- Real-time keyboard/mouse interaction
+- Adaptive scaling and responsive controls
+- Managing state transitions (pause, game over, reset)
+- Collision detection and dynamic movement
+   
 ---
 
 ## 📱 Mobile-Friendly
@@ -66,11 +74,10 @@ Responsive controls and canvas resizing ensure the game plays smoothly on smalle
 
 ---
 
-## 🙌 Author
-
-**Jonier**  
-_Aspiring Front-End Developer_  
-📫 [LinkedIn](www.linkedin.com/in/jonier-elian-pachon-delgado-8211841ba) • [GitHub](https://github.com/jonierpachon)
+## 📬 Contact
+Feel free to connect with me or share feedback!
+- 💼 [LinkedIn](https://www.linkedin.com/in/jonier-elian-pachon-delgado-8211841ba/)
+- 🌐 [Web Portfolio](https://funny-rabanadas-625f53.netlify.app/)
 
 ---
 
@@ -79,7 +86,4 @@ _Aspiring Front-End Developer_
 This project is open source. Feel free to use it for learning or personal projects.
 
 ---
-
-
-
 
