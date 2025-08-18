@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Snake</title>
+      <link rel="stylesheet" href="style.css" />
+      <script src="script.js" defer></script>
+   </head>
+   <body class="flex-center">
+      <audio class="eating" src="eating.wav"></audio>
+      <audio
+         class="children-celebrating"
+         src="children-celebrating.wav"
+      ></audio>
+      <audio class="surprise" src="surprise.wav"></audio>
+      <div class="game">
+         <canvas class="game__board" width="500" height="500"> </canvas>
+         <div class="game__controls flex-center">
+            <div class="game__score flex-center">
+               <span class="game__high-score-text">Best:0</span>
+               <span class="game__score-text">0</span>
+            </div>
+            <div class="game__direction-buttons flex-center">
+               <div
+                  id="centerBtn"
+                  class="game__direction-buttons-center flex-center"
+               >
+                  <button
+                     id="leftBtn"
+                     class="game__direction-button game__direction-buttons-general flex-center"
+                     onclick="snakeDirection(this)"
+                  >
+                     ←
+                  </button>
+                  <button
+                     class="game__direction-button game__direction-buttons-general flex-center"
+                     id="upBtn"
+                     onclick="snakeDirection(this)"
+                  >
+                     ↑
+                  </button>
+                  <button
+                     class="game__direction-button game__direction-buttons-general flex-center"
+                     id="rightBtn"
+                     onclick="snakeDirection(this)"
+                  >
+                     →
+                  </button>
+                  <button
+                     class="game__direction-button game__direction-buttons-general flex-center"
+                     id="downBtn"
+                     onclick="snakeDirection(this)"
+                  >
+                     ↓
+                  </button>
+               </div>
+            </div>
+            <div class="game__action-buttons flex-center">
+               <button class="game__action-button flex-center" id="resetBtn">
+                  ⟳
+               </button>
+               <button
+                  value="yes"
+                  class="game__action-button flex-center"
+                  id="pauseBtn"
+                  onclick="pauseGame(this)"
+               >
+                  ||
+               </button>
+               <select class="level">
+                  <option value="easy">Easy</option>
+                  <option selected value="medium">Medium</option>
+                  <option value="hard">Hard</option>
+               </select>
+            </div>
+         </div>
+      </div>
+   </body>
+</html>

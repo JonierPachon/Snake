@@ -1,0 +1,214 @@
+.flex-center {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+body {
+   margin: 0;
+   flex-direction: column;
+}
+
+.game__board {
+   border: 3px solid;
+}
+
+.game__score {
+   flex-direction: column;
+   width: 70px;
+   gap: 10px;
+}
+
+.level {
+   font-family: "permanent Marker", sans-serif;
+   font-size: 16px;
+   border: 3px solid;
+   padding: 10px 0 10px 10px;
+   border-radius: 50px;
+   cursor: pointer;
+   color: white;
+   border: rgba(0, 0, 0, 0.751) solid;
+   background-color: rgba(26, 153, 3, 0.803);
+}
+
+.game__score-text {
+   font-family: "permanent Marker", "sans-serif";
+   font-size: 80px;
+   line-height: 1;
+}
+
+.game__high-score-text {
+   font-family: "permanent Marker", "sans-serif";
+   font-size: 20px;
+}
+/* reset and pause buttons */
+.game__action-button {
+   font-family: "permanent Marker", sans-serif;
+   font-size: 22px;
+   width: 80px;
+   height: 50px;
+   border: 3px solid;
+   border-radius: 1000px;
+   cursor: pointer;
+   font-weight: bolder;
+   color: white;
+   border: rgba(0, 0, 0, 0.751) solid;
+   background-color: rgba(26, 153, 3, 0.803);
+   position: relative;
+}
+/* adding some color */
+.game__action-button::after {
+   content: " ";
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   border-radius: 15px;
+   z-index: -1;
+   background-image: linear-gradient(
+      to bottom right,
+      rgba(144, 238, 144, 0.529),
+      rgba(0, 100, 0, 0.359)
+   );
+}
+
+.game__action-button:hover {
+   z-index: 0;
+   box-shadow: 40px 0 100px #07bc343b, -40px 0 100px #f6020234;
+}
+
+#centerBtn {
+   font-family: "permanent Marker", sans-serif;
+   width: 42px;
+   height: 42px;
+   background-color: rgba(26, 153, 3, 0.803);
+   border: none;
+   border-radius: 10px;
+   cursor: default;
+}
+
+.game__direction-buttons {
+   position: relative;
+}
+
+.game__direction-buttons-center {
+   position: absolute;
+   top: 20px;
+   justify-content: space-around;
+   border: 1px solid;
+   height: 40px;
+   width: 40px;
+}
+
+.game__direction-buttons-general {
+   font-family: "permanent Marker", sans-serif;
+   font-size: 22px;
+   font-weight: bolder;
+   color: rgb(255, 255, 255);
+   width: 60px;
+   height: 60px;
+   border: rgba(4, 5, 4, 0.751) solid;
+   background-color: rgba(26, 153, 3, 0.803);
+   border-radius: 15px;
+   cursor: pointer;
+   position: relative;
+}
+/* adding some color */
+.game__direction-buttons-general::before {
+   content: " ";
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   border-radius: 15px;
+   z-index: -1;
+   background-image: linear-gradient(
+      to bottom right,
+      rgba(144, 238, 144, 0.529),
+      rgba(0, 100, 0, 0.359)
+   );
+}
+
+.game__direction-buttons-general:hover {
+   z-index: 0;
+   box-shadow: 40px 0 100px #07bc343b, -40px 0 100px #f6020234;
+}
+
+/* Align buttons */
+
+.game__direction-button {
+   position: absolute;
+}
+
+#leftBtn {
+   right: 100%;
+}
+#upBtn {
+   bottom: 100%;
+}
+#rightBtn {
+   left: 100%;
+}
+#downBtn {
+   top: 100%;
+}
+
+/* media queries */
+.game__controls {
+   gap: 150px;
+}
+
+.game__direction-buttons {
+   padding-top: 60px;
+}
+
+.game__action-buttons {
+   flex-direction: column;
+   /* padding-top: 40px; */
+   gap: 15px;
+}
+
+#pauseBtn {
+   font-weight: bolder;
+   font-size: 18px;
+}
+
+@media screen and (max-width: 500px) {
+   .game__controls {
+      justify-content: space-around;
+      gap: 80px;
+   }
+
+   .game__direction-buttons-general {
+      width: 60px;
+      height: 60px;
+   }
+
+   #centerBtn {
+      width: 40px;
+      height: 40px;
+   }
+
+   .game__direction-buttons-center {
+      left: -10px;
+      top: 20px;
+      height: 35px;
+      width: 35px;
+   }
+
+   /* pause and reset buttons */
+   .game__action-button {
+      width: 60px;
+      height: 40px;
+   }
+   .game__score {
+      width: 55px;
+   }
+   .game__score-text {
+      font-size: 60px;
+   }
+
+   .level {
+      font-size: 12px;
+      padding: 8px 0 8px 8px;
+      font-weight: bolder;
+   }
+}
