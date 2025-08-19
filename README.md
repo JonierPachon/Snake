@@ -30,8 +30,8 @@ A modern twist on the classic Snake game, built using **HTML**, **CSS**, and **J
 
 ## 📸 Demo
 
-<p align="center"><img src="https://github.com/JonierPachon/Snake/blob/main/README%20images/pc.png" alt="My Image" width="700" height="auto" ></p>
-<p align="center"><img src="https://github.com/JonierPachon/Snake/blob/main/README%20images/phone.png" alt="My Image" width="300" height="auto"></p>
+<p align="center"><img src="https://github.com/JonierPachon/Snake/blob/main/assets/README%20images/pc.png" alt="My Image" width="700" height="auto" ></p>
+<p align="center"><img src="https://github.com/JonierPachon/Snake/blob/main/assets/README%20images/phone.png" alt="My Image" width="300" height="auto"></p>
 
 ---
 
